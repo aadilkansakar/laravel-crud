@@ -40,7 +40,7 @@ class CommentController extends Controller
     {
         Comment::create($request->validated() + ['post_id' => $post->id]);
 
-        return redirect()->route('post.show',$post->id)->with('success','Comment has been added');
+        return redirect()->route('post.show', $post)->with('success','Comment has been added');
     }
 
     /**
@@ -74,11 +74,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CommentRequest $request, Comment $comment)
+    public function update(CommentRequest $request, Post $post, Comment $comment)
     {
         $comment->update($request->validated());
 
-        return redirect()->route('post.show')->with('success', 'Comment has been edited');
+        return redirect()->route('post.show', $post)->with('updated', 'Comment has been edited');
     }
 
     /**
@@ -91,6 +91,6 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return redirect()->route('post.show',$post->id)->with('success', $comment->description.' has been deleted');
+        return redirect()->route('post.show', $post)->with('destroyed', 'Comment has been deleted');
     }
 }

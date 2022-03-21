@@ -18,7 +18,7 @@ class CommentFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(20),
-            'post_id' => $this->faker->numberBetween(1,5),
+            'post_id' => $this->faker->numberBetween(1,6),
         ];
     }
 }

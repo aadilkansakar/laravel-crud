@@ -37,3 +37,5 @@ Route::get('/', function() {
 
 Route::resource('post', PostController::class);
 Route::resource('post.comment', CommentController::class)->except('index','show');
+
+Route::put('post/{post}/image/destroy', [PostController::class, 'destroyPhoto'])->name('post.images.destroy');
