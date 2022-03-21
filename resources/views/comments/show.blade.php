@@ -20,7 +20,7 @@
                     <tr>
                         <th scope="col">Image</th>
                         <td>
-                            @if ($post->image)
+                            @if ($post->image && File::exists('images/posts/'.$post->image))
                                 <img src="{{ asset('images/posts/'.$post->image) }}" height="70px" width="70px" alt="">
                             @else
                                 <img src="{{ asset('images/posts/noimage.jpg') }}" height="70px" width="70px" alt="">
@@ -30,8 +30,9 @@
                 </table>
                 <div class="container">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <form action="destroy" method="POST">
-                            <a href="edit" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('post.destroy',$post->id) }}" method="POST">
+                            <a href="{{ route('post.comment.index',$post->id) }}" class="btn btn-primary">Comments</a>
+                            <a href="{{ route('post.edit',$post->id) }}" class="btn btn-warning">Edit</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -40,5 +41,13 @@
                 </div>
             </div>
             <!-- Table End -->
+
+            {{-- <div class="container w-50 p-3">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>{{ $comment->text }}</td>
+                    </tr>
+                </table>
+            </div> --}}
 
 @endsection

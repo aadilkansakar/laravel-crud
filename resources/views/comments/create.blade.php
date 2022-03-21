@@ -12,7 +12,7 @@
                 </div>
             </div> --}}
 
-            <form class="container mt-5 w-50 p-3" action="/store" method="POST" enctype="multipart/form-data">
+            <form class="container mt-5 w-50 p-3" action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Title</label>
