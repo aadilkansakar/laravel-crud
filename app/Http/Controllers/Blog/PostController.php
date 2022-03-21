@@ -46,9 +46,10 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // $post = Post::findOrFail($id);
-        $comment = Comment::where('post_id', $post->id)->get();
 
-        return view('posts.show', compact('post','comment'));
+        $comments = Post::find($post->id)->comments;
+
+        return view('posts.show', compact('post','comments'));
     }
 
     public function edit(Post $post)

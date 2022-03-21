@@ -30,7 +30,10 @@ Route::get('/', function() {
 //     Route::delete('{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
 // });
 
-Route::resources([
-    'post' => PostController::class,
-    'post.comment' => CommentController::class,
-]);
+// Route::resources([
+//     'post' => PostController::class,
+//     'post.comment' => CommentController::class,
+// ]);
+
+Route::resource('post', PostController::class);
+Route::resource('post.comment', CommentController::class)->except('index','show');

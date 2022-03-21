@@ -8,7 +8,7 @@
 
             <div class="container my-3">
                 <div class="col-sm-3">
-                    <a href="{{ route('post.create') }}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create Post</a>
+                    <a href="{{ route('post.create') }}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create</a>
                 </div>
             </div>
 
@@ -38,10 +38,10 @@
                             </td>
                             <td>
                                 <form action="{{ route('post.destroy',$post->id) }}" method="POST">
-                                    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                                    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i>Delete</button>
                                 </form>
                             </td>
                         </tr>                            

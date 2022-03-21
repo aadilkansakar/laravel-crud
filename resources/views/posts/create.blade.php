@@ -6,11 +6,11 @@
 
             <h1 class="d-flex justify-content-center">Create New Post</h1>
 
-            {{-- <div class="container my-3">
+            <div class="container my-3">
                 <div class="col-sm-3">
-                    <a href="/create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create</a>
+                    <a href="{{ route('post.index') }}" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>
                 </div>
-            </div> --}}
+            </div>
 
             <form class="container mt-5 w-50 p-3" action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -14,11 +15,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index()
     {
-        $comments = Comment::where('post_id', $post->id)->get();
-
-        return view('comments.index', compact('post','comments'));
+        //
     }
 
     /**
@@ -26,9 +25,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Post $post)
     {
-        //
+        return view('comments.create', compact('post'));
     }
 
     /**
@@ -37,9 +36,11 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request, Post $post)
     {
-        //
+        Comment::create($request->validated() + ['post_id' => $post->id]);
+
+        return redirect()->route('post.show',$post->id)->with('success','Comment has been added');
     }
 
     /**
@@ -59,9 +60,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post, Comment $comment)
     {
-        //
+        // dd($post, $comment);
+        
+        return view('comments.edit', compact('post','comment'));
     }
 
     /**
@@ -71,9 +74,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, Comment $comment)
     {
-        //
+        $comment->update($request->validated());
+
+        return redirect()->route('post.show')->with('success', 'Comment has been edited');
     }
 
     /**
@@ -82,8 +87,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post, Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('post.show',$post->id)->with('success', $comment->description.' has been deleted');
     }
 }
