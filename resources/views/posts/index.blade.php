@@ -4,11 +4,11 @@
 
 @section('content')
 
-            <h1 class="d-flex justify-content-center">Roles</h1>
+            <h1 class="d-flex justify-content-center">Posts</h1>
 
             <div class="container my-3">
                 <div class="col-sm-3">
-                    <a href="/create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create Post</a>
+                    <a href="{{ route('post.create') }}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create</a>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                         @foreach ($posts as $post)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</td>
-                            <td><a href="{{ $post->id }}/show">{{ $post->title }}</a></td>
+                            <td><a href="{{ route('post.show',$post->id) }}">{{ $post->title }}</a></td>
                             <td>
                                 @if ($post->image && File::exists('images/posts/'.$post->image))
                                     <img src="{{ asset('images/posts/'.$post->image) }}" height="70px" width="70px" alt="">
@@ -37,11 +37,11 @@
                                 
                             </td>
                             <td>
-                                <form action="{{ $post->id }}/destroy" method="POST">
-                                    <a href="{{ $post->id }}/edit" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                                <form action="{{ route('post.destroy',$post->id) }}" method="POST">
+                                    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i>Delete</button>
                                 </form>
                             </td>
                         </tr>                            

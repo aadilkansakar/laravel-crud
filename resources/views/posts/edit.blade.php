@@ -6,13 +6,13 @@
 
             <h1 class="d-flex justify-content-center">Edit Post</h1>
 
-            {{-- <div class="container my-3">
+            <div class="container my-3">
                 <div class="col-sm-3">
-                    <a href="/create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Create</a>
+                    <a href="{{ route('post.index') }}" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>
                 </div>
-            </div> --}}
+            </div>
 
-            <form class="container mt-5 w-50 p-3" action="update" method="POST" enctype="multipart/form-data">
+            <form class="container mt-5 w-50 p-3" action="{{ route('post.update',$post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -33,7 +33,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    @if ($post->image)
+                    @if ($post->image && File::exists('images/posts/'.$post->image))
                         <img src="{{ asset('images/posts/'.$post->image) }}" height="70px" width="70px" alt="">
                     @else
                         <img src="{{ asset('images/posts/noimage.jpg') }}" height="70px" width="70px" alt="">
