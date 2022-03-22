@@ -78,7 +78,7 @@ class PostController extends Controller
             $post->update($request->validated());
         }
 
-        return redirect()->route('post.index')->with('success','Post Updated Successfully');
+        return redirect()->route('post.show', $post)->with('updated','Post Updated Successfully');
     }
 
     public function destroy(Post $post)
@@ -94,6 +94,20 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('post.index')->with('success','Post '.$post->title.' Deleted Successfully');
+        return redirect()->route('post.index')->with('destroyed','Post '.$post->title.' Deleted Successfully');
+    }
+
+    public function destroyPhoto(Post $post)
+    {
+        if ($post->image) {
+            $destination = 'images/posts/'.$post->image;
+            if (File::exists($destination)) {
+                unlink($destination);
+            }
+        }
+
+        $post->update(['image' => NULL]);
+
+        return redirect()->route('post.show', $post)->with('destroyed','Your Post Image has been removed');
     }
 }
